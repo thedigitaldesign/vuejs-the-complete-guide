@@ -15,19 +15,53 @@
       <p>Check out: <a v-bind:href="link" target="_blank" rel="noopener noreferrer">Go here</a></p>
       <p v-html="finishedLink"></p>
 
+      <br />
       <hr />
       <hr />
+      <br />
 
       <button v-on:click="clickCounter(2, $event)">Click Me</button>
       <p>Click count: {{ count }}</p>
       <p v-on:mousemove="updateCoordinates">
-        Coordinates: {{ x }} / {{ y }}
-        - <span v-on:mousemove.stop>DEAD SPOT</span>
+        Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop>DEAD SPOT</span>
       </p>
-      <input type="text" v-on:keyup.enter.space="consoleMe">
+      <input type="text" v-on:keyup.enter.space="consoleMe" />
+
+      <br />
+      <br />
+      <hr />
+      <hr />
+      <br />
+
+      <input type="text" v-model="name" placeholder="Names" />
+
+      <br />
+      <br />
+      <hr />
+      <hr />
+      <br />
+
+      <button v-on:click="counter++">Increase</button>
+      <button v-on:click="counter--">Decrease</button>
+      <button v-on:click="secondCounter">Increase Second</button>
+      <p>Counter: {{ counter }} | Second Counter: {{ secondCounter }}</p>
+      <p>Result: {{ result() }} | Output: {{ output }}</p>
     </div>
 
     <script>
+      /*
+        Vue Instance
+          - el: Connect to DOM
+          - data: Store Data to be used
+          - methods: Functions of this Vue Instance
+          - computed: Dependant Properties, can be used like a property in the data object
+          - watch: Execute code upon data changes
+
+        Shortcuts
+          - @click is the same as v-on:click. Another way of thinking about it is, @(at) the click event
+          - :href is the same as v-bind:href
+      */
+
       new Vue({
         el: '#app',
         data: {
@@ -37,6 +71,23 @@
           count: 0,
           x: 0,
           y: 0,
+          name: 'Lord of the Dance',
+          counter: 0,
+          secondCounter: 0,
+        },
+        computed: {
+          output: function() {
+            return this.counter > 5 ? 'Greater than 5' : 'Less than 5'
+          }
+        },
+        watch: {
+          counter: function(value) {
+            console.log('Counter: ', value)
+            const vm = this
+            setTimeout(() => {
+              vm.counter = 0
+            }, 2000)
+          }
         },
         methods: {
           changeTitle: function(event) {
@@ -58,7 +109,10 @@
           // }
           consoleMe: function(event) {
             console.log(event.target.value)
-          }
+          },
+          result() {
+            return this.counter > 5 ? 'Greater than 5' : 'Less than 5'
+          },
         },
       })
     </script>
