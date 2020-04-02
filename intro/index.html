@@ -9,14 +9,29 @@
 </head>
 <body>
   <div id="app">
+    <h1 v-once>{{ sayHello() }}</h1>
+    <input type="text" v-on:input="changeTitle">
     <p>{{ title }}</p>
+    <p>Check out: <a v-bind:href="link" target="_blank" rel="noopener noreferrer">Go here</a></p>
+    <p v-html="finishedLink"></p>
   </div>
 
   <script>
     new Vue({
       el: '#app',
       data: {
-        title: 'Hello World'
+        title: 'Hello World',
+        link: 'https://duckduckgo.com',
+        finishedLink: '<a href="https://google.com">Do not go here</a>'
+      },
+      methods: {
+        changeTitle: function(event) {
+          this.title = event.target.value
+        },
+        sayHello: () => {
+          this.title = 'Say Hello!'
+          return this.title
+        }
       }
     })
   </script>
