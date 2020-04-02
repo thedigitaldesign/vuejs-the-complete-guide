@@ -1,39 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to Vue.js 2</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Vue.js 2</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
-    <h1 v-once>{{ sayHello() }}</h1>
-    <input type="text" v-on:input="changeTitle">
-    <p>{{ title }}</p>
-    <p>Check out: <a v-bind:href="link" target="_blank" rel="noopener noreferrer">Go here</a></p>
-    <p v-html="finishedLink"></p>
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1 v-once>{{ sayHello() }}</h1>
+      <input type="text" v-on:input="changeTitle" />
+      <p>{{ title }}</p>
+      <p>Check out: <a v-bind:href="link" target="_blank" rel="noopener noreferrer">Go here</a></p>
+      <p v-html="finishedLink"></p>
 
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        title: 'Hello World',
-        link: 'https://duckduckgo.com',
-        finishedLink: '<a href="https://google.com">Do not go here</a>'
-      },
-      methods: {
-        changeTitle: function(event) {
-          this.title = event.target.value
+      <hr />
+      <hr />
+
+      <button v-on:click="clickCounter">Click Me</button>
+      <p>Click count: {{ count }}</p>
+      <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }}</p>
+    </div>
+
+    <!-- <script>
+      new Vue({
+        el: '#app',
+        data: {
+          count: 0,
+          x: 0,
+          y: 0
         },
-        sayHello: () => {
-          this.title = 'Say Hello!'
-          return this.title
+        methods: {
+          clickCounter: () => {
+            this.count++
+            console.log(this.count)
+          },
+          updateCoordinates: () => {
+
+          }
         }
-      }
-    })
-  </script>
-</body>
+      })
+    </script> -->
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          title: 'Hello World',
+          link: 'https://duckduckgo.com',
+          finishedLink: '<a href="https://google.com">Do not go here</a>',
+          count: 0,
+          x: 0,
+          y: 0,
+        },
+        methods: {
+          changeTitle: function(event) {
+            this.title = event.target.value
+          },
+          sayHello: function() {
+            this.title = 'Say Hello!'
+            return this.title
+          },
+          clickCounter: function() {
+            this.count++
+          },
+          updateCoordinates: function(event) {
+            this.x = event.clientX
+            this.y = event.clientY
+          },
+        },
+      })
+    </script>
+  </body>
 </html>
