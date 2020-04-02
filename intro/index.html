@@ -18,30 +18,14 @@
       <hr />
       <hr />
 
-      <button v-on:click="clickCounter">Click Me</button>
+      <button v-on:click="clickCounter(2, $event)">Click Me</button>
       <p>Click count: {{ count }}</p>
-      <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }}</p>
+      <p v-on:mousemove="updateCoordinates">
+        Coordinates: {{ x }} / {{ y }}
+        - <span v-on:mousemove.stop>DEAD SPOT</span>
+      </p>
+      <input type="text" v-on:keyup.enter.space="consoleMe">
     </div>
-
-    <!-- <script>
-      new Vue({
-        el: '#app',
-        data: {
-          count: 0,
-          x: 0,
-          y: 0
-        },
-        methods: {
-          clickCounter: () => {
-            this.count++
-            console.log(this.count)
-          },
-          updateCoordinates: () => {
-
-          }
-        }
-      })
-    </script> -->
 
     <script>
       new Vue({
@@ -62,13 +46,19 @@
             this.title = 'Say Hello!'
             return this.title
           },
-          clickCounter: function() {
+          clickCounter: function(i, event) {
             this.count++
           },
           updateCoordinates: function(event) {
             this.x = event.clientX
             this.y = event.clientY
           },
+          // deadSpot: function(event) {
+          //   event.stopPropagation()
+          // }
+          consoleMe: function(event) {
+            console.log(event.target.value)
+          }
         },
       })
     </script>
