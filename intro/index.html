@@ -6,6 +6,28 @@
     <title>Introduction to Vue.js 2</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+      .demo {
+        width: 100px;
+        height: 100px;
+        background-color: gray;
+        display: inline-block;
+        margin: 10px;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .blue {
+        background-color: blue;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
@@ -46,6 +68,33 @@
       <button v-on:click="secondCounter">Increase Second</button>
       <p>Counter: {{ counter }} | Second Counter: {{ secondCounter }}</p>
       <p>Result: {{ result() }} | Output: {{ output }}</p>
+
+      <br />
+      <hr />
+      <hr />
+      <br />
+
+      <div 
+        class="demo" 
+        @click="attachRed = !attachRed" 
+        :class="divClasses"
+      ></div>
+      <div class="demo" :class="{'red': attachRed}"></div>
+      <div class="demo" :class="[color, {'red': attachRed}]"></div>
+      <br />
+      <input type="text" v-model="color" />
+
+      <br />
+      <br />
+      <hr />
+      <hr />
+      <br />
+
+      <div class="demo" :style="{'background-color': color2}"></div>
+      <div class="demo" :style="myStyle"></div>
+      <div class="demo" :style="[myStyle, {height: '50px', width: '50px'}]"></div>
+      <br />
+      <input type="text" v-model="color2" />
     </div>
 
     <script>
@@ -74,11 +123,25 @@
           name: 'Lord of the Dance',
           counter: 0,
           secondCounter: 0,
+          attachRed: false,
+          color: 'green',
+          color2: 'gray'
         },
         computed: {
           output: function() {
             return this.counter > 5 ? 'Greater than 5' : 'Less than 5'
-          }
+          },
+          divClasses: function() {
+            return {
+              'red': this.attachRed,
+              'blue': !this.attachRed
+            }
+          },
+          myStyle: function() {
+            return {
+              'background-color': this.color2
+            }
+          },
         },
         watch: {
           counter: function(value) {
@@ -87,7 +150,7 @@
             setTimeout(() => {
               vm.counter = 0
             }, 2000)
-          }
+          },
         },
         methods: {
           changeTitle: function(event) {

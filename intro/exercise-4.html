@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise - 4</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+      #effect {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+      }
+
+      .highlight {
+        background-color: red;
+        width: 200px !important;
+      }
+
+      .shrink {
+        background-color: gray;
+        width: 50px !important;
+      }
+
+      .hello {
+        background-color: #000;
+      }
+
+      .world {
+        color: #fff;
+      }
+
+      .pink {
+        background-color: pink;
+      }
+
+      .lightblue {
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="exercise">
+      <!-- 
+        1)  Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" 
+            class on each new setInterval tick (attach respective class to the div with id "effect" below) 
+      -->
+      <div>
+        <button @click="startEffect">Start Effect</button>
+        <div id="effect" :class="[{'highlight': toggle, 'shrink': !toggle}]"></div>
+      </div>
+
+      <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+      <div :class="['hello', 'world']">I got no class :(</div>
+
+      <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+      <div>
+        <input type="text" v-model="cssClass" />
+        <div :class="cssClass">Enter CSS class, lightblue or pink</div>
+      </div>
+
+      <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+      <div>
+        <input type="text" />
+        <input type="text" />
+        <div></div>
+      </div>
+
+      <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+      <div>
+        <input type="text" />
+        <div></div>
+      </div>
+
+      <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+      <div>
+        <button>Start Progress</button>
+        <div></div>
+      </div>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#exercise',
+        data: {
+          toggle: false,
+          cssClass: 'lightblue'
+        },
+        computed: {},
+        watch: {},
+        methods: {
+          startEffect: function() {
+            const vm = this
+            console.log('toggle watch')
+
+            setInterval(() => {
+              vm.toggle = !vm.toggle
+            }, 4000)
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
